@@ -11,7 +11,8 @@
     "db:down": "docker compose down",
     "db:reset": "docker compose down -v && docker compose up -d --wait",
     "db:psql": "docker compose exec db psql -U matter -d matter_memory",
-    "check:db": "tsx scripts/check-db.ts"
+    "check:db": "tsx scripts/check-db.ts",
+    "check:ollama": "tsx scripts/check-ollama.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
