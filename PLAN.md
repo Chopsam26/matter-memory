@@ -399,10 +399,20 @@ Both live behind `embed()` and `embedQuery()`.
 Each step is one commit and leaves the repo in a working state. Steps 1–5b are the
 project; 6–7 are the demo surface.
 
-**Step 0 — Scaffold**
+**Step 0 — Scaffold** *(done — `d951695`, upgraded to Next 16 immediately after)*
 `create-next-app` (TypeScript, Tailwind, App Router, `src/`), `shadcn init`, install the
 four approved deps, commit `.env.example`.
 *Done when:* `npm run dev` serves the default page.
+
+Scaffolded on Next 15.5.24, then upgraded to **Next 16.3.3 / React 19.2.8** because
+Next 15 pulls a `postcss` with four published advisories (one high) and the only fix is
+the major upgrade. `npm audit` now reports 0 vulnerabilities. CLAUDE.md's stack line was
+updated to match, so the instructions file does not contradict the lockfile.
+
+Node 20.17.0 satisfies Next 16 (`>=20.9.0`), but three transitive tooling packages
+(`shadcn`, `undici`, `eslint-visitor-keys`) want `>=20.18.1` and emit `EBADENGINE`
+warnings on install. Harmless — build, typecheck and dev server all pass — but a bump to
+Node 20.19+ or 22 LTS would silence them.
 
 **Step 1 — Postgres + pgvector**
 `docker-compose.yml` (host port **5433**), `db/schema.sql`, `src/lib/db.ts`,
