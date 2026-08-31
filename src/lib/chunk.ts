@@ -104,7 +104,10 @@ export function chunkText(text: string): Chunk[] {
     // the opening article would point a citation at the wrong place, which is
     // worse than an ugly label.
     let section = sectionAtStart ?? `Part ${chunks.length + 1}`;
-    if (topAtStart && currentTop && currentTop !== topAtStart) {
+    // Note this fires when topAtStart is null too: a chunk that opens in the
+    // preamble and then runs into ARTICLE I would otherwise be cited as
+    // "Part 1", hiding the article it actually contains.
+    if (currentTop && currentTop !== topAtStart) {
       section = `${section} … ${currentTop}`;
     }
 

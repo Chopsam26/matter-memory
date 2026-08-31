@@ -1,0 +1,123 @@
+[
+  {
+    "id": "piano-bequest",
+    "question": "Who receives the Steinway grand piano?",
+    "matterId": 1,
+    "kind": "single",
+    "expectedDocuments": ["Last Will and Testament of Margaret Hollis"],
+    "expectedOrdinals": [3],
+    "note": "Article III, Section 3.2 - Owen Bennett, held until he is 21."
+  },
+  {
+    "id": "poa-successor-agent",
+    "question": "If Claire cannot act as attorney-in-fact, who is the successor agent?",
+    "matterId": 1,
+    "kind": "single",
+    "expectedDocuments": ["Durable Power of Attorney - Margaret Hollis"],
+    "expectedOrdinals": [0],
+    "note": "Article I, Section 1.2 - Ruth Hollis Alden."
+  },
+  {
+    "id": "owen-trust-ages",
+    "question": "At what ages does Owen Bennett receive his share of the trust?",
+    "matterId": 1,
+    "kind": "single",
+    "expectedDocuments": ["The Margaret A. Hollis Revocable Trust"],
+    "expectedOrdinals": [5],
+    "note": "Section 5.2 - half at 25, balance at 30."
+  },
+  {
+    "id": "cd-rate-maturity",
+    "question": "What is the interest rate on the certificate of deposit and when does it mature?",
+    "matterId": 1,
+    "kind": "single",
+    "expectedDocuments": ["Merchant & Coastal Bank Statement - Q4 2024"],
+    "expectedOrdinals": [3],
+    "note": "Section 4 - 4.15%, matures February 14, 2026."
+  },
+  {
+    "id": "reyes-guardian",
+    "question": "Who is nominated as guardian of a minor child?",
+    "matterId": 2,
+    "kind": "single",
+    "expectedDocuments": ["Last Will and Testament of Thomas Reyes"],
+    "expectedOrdinals": [6],
+    "note": "Article VII - Camila Oyelaran."
+  },
+  {
+    "id": "reyes-mortgage-balance",
+    "question": "What is the outstanding principal balance on the mortgage?",
+    "matterId": 2,
+    "kind": "single",
+    "expectedDocuments": ["Harbor Trust Savings Bank Statement - Q4 2024"],
+    "expectedOrdinals": [7, 8],
+    "note": "Section 7 - $268,431.07. Two ordinals because the 150-char overlap carries the figure into chunk 8 as well; both genuinely contain the answer."
+  },
+
+  {
+    "id": "willow-lane-disposition",
+    "question": "How is the house at 14 Willow Lane held, and who receives it on Margaret's death?",
+    "matterId": 1,
+    "kind": "spanning",
+    "expectedDocuments": [
+      "The Margaret A. Hollis Revocable Trust",
+      "Quitclaim Deed - 14 Willow Lane"
+    ],
+    "note": "Deed conveyed it into the trust; trust Section 4.2 distributes it to Claire."
+  },
+  {
+    "id": "accounts-titled-in-trust",
+    "question": "Which bank accounts are titled in the name of the revocable trust rather than held individually?",
+    "matterId": 1,
+    "kind": "spanning",
+    "expectedDocuments": [
+      "Merchant & Coastal Bank Statement - Q4 2024",
+      "The Margaret A. Hollis Revocable Trust"
+    ],
+    "note": "Statement Section 6 names the investment account; trust Section 2.2 covers additions."
+  },
+
+  {
+    "id": "daniel-reasons",
+    "question": "Why was Daniel excluded from the estate?",
+    "matterId": 1,
+    "kind": "restricted",
+    "expectedDocuments": ["Confidential Memorandum - Omission of Daniel Hollis"],
+    "expectedOrdinals": [2],
+    "note": "Section 2 - unrepaid advances and the 2021 account incident. The will states THAT he was excluded but deliberately not why."
+  },
+  {
+    "id": "capacity-assessment",
+    "question": "Was the client's capacity assessed before she signed, and by which physician?",
+    "matterId": 1,
+    "kind": "restricted",
+    "expectedDocuments": ["Confidential Memorandum - Omission of Daniel Hollis"],
+    "expectedOrdinals": [4],
+    "note": "Section 3.1 - Dr. Amara Osei, examined March 2 2022. Discriminating: trust Section 3.3 also discusses incapacity, but prospectively and by two unnamed physicians."
+  },
+
+  {
+    "id": "health-care-proxy",
+    "question": "Who is named as health care agent under the health care proxy?",
+    "matterId": 1,
+    "kind": "unanswerable",
+    "expectedDocuments": [],
+    "note": "No health care proxy in the corpus. Verified absent from all eight documents."
+  },
+  {
+    "id": "prenuptial-agreement",
+    "question": "What does the prenuptial agreement provide?",
+    "matterId": 1,
+    "kind": "unanswerable",
+    "expectedDocuments": [],
+    "note": "No prenuptial agreement in the corpus."
+  },
+  {
+    "id": "digital-assets",
+    "question": "What instructions are there for digital assets and online accounts?",
+    "matterId": 1,
+    "kind": "unanswerable",
+    "expectedDocuments": [],
+    "note": "No digital assets provision in the corpus."
+  }
+]

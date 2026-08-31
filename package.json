@@ -16,7 +16,8 @@
     "seed": "tsx scripts/seed.ts",
     "retrieve": "tsx scripts/retrieve.ts",
     "ask": "tsx scripts/ask.ts",
-    "check:permissions": "tsx scripts/check-permissions.ts"
+    "check:permissions": "tsx scripts/check-permissions.ts",
+    "eval": "tsx scripts/eval.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
