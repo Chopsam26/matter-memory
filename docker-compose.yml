@@ -1,0 +1,30 @@
+# Postgres 16 with pgvector prebuilt. Ollama is NOT here - it runs natively on
+# the host, and Node talks to it at http://127.0.0.1:11434.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: matter_memory_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: matter
+      POSTGRES_PASSWORD: matter
+      POSTGRES_DB: matter_memory
+    ports:
+      # Host 5433, not 5432: a Homebrew Postgres 14 already holds 5432 on this
+      # machine. Inside the container it is still the normal 5432.
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Scripts here run ONLY when the data directory is empty - i.e. on the
+      # very first start of a fresh volume. Editing schema.sql later does
+      # nothing until you run `npm run db:reset`, which drops the volume.
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U matter -d matter_memory"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+
+volumes:
+  pgdata:
