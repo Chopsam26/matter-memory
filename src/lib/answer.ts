@@ -51,6 +51,7 @@ export function buildPrompt(question: string, chunks: RetrievedChunk[]): string 
 Rules:
 - Use only these excerpts. Do not draw on legal knowledge from anywhere else.
 - Cite every factual claim with its excerpt number in square brackets, like [2]. Cite more than one where more than one applies.
+- Put each citation immediately after the claim it supports, never at the start of a sentence.
 - Quote names, figures and dates exactly as they appear.
 - If the excerpts do not answer the question, reply with exactly this sentence and nothing more: ${NO_ANSWER}
 

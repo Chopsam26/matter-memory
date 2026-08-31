@@ -18,6 +18,11 @@ Everything else in the project exists to make that one property visible and cred
 
 The repo is currently empty apart from `CLAUDE.md` and `.gitignore`.
 
+> **Status: all steps complete.** Verify with `npm run db:up && npm run seed`, then
+> `npm run check:permissions` (16/16), `npm run eval`, and `npm run dev`.
+> Deviations from this plan, and the reasons for them, are recorded in the commit
+> for each step.
+
 ---
 
 ## Environment findings
