@@ -361,9 +361,10 @@ fields — file picker, matter select, sensitivity select — but `/api/upload` 
 header in `layout.tsx`, where both pages read it. The upload *form* stays exactly the
 three fields specified.
 
-*(Policy note, flagged not decided: this lets a paralegal upload a document marked
-restricted, which they then cannot read back. That is coherent — classifying is not
-reading — but it is a real choice. Say so if you want upload restricted to attorneys.)*
+**Policy, decided:** a paralegal may upload a document marked restricted, and then
+cannot read it back. Classifying is not reading, and this matches how a firm actually
+works — the person who files a sensitive memo is often not the person cleared to read
+it. Upload is open to any resolved user; only retrieval is role-gated.
 
 ### The generation prompt
 
@@ -567,16 +568,31 @@ difference between claiming restricted content never reached the model and showi
 
 Ordered by how likely each is to bite.
 
-**a. `pdf-parse` breaks under Next.js if imported normally.** The package's entry point
-runs a debug block that reads a bundled test PDF from disk, which throws once the module
-is bundled. The standard fix is to import the implementation directly:
+**a. `pdf-parse` under Next.js — corrected at step 0.** The planned workaround was for
+`pdf-parse` v1, whose entry point ran a debug block that read a bundled test PDF from
+disk and threw once bundled. npm now installs **v2.4.5, a full rewrite**, and the
+workaround no longer applies:
 
 ```ts
-const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
+// v1 (what the plan assumed)          // v2 (what we actually have)
+const pdf = require('pdf-parse')       import { PDFParse } from 'pdf-parse';
+pdf(buffer).then(r => r.text)          const r = await new PDFParse({ data: buf }).getText();
 ```
 
-The upload route also needs `export const runtime = 'nodejs'` — it will not work on the
-Edge runtime. Both belong in the plan rather than being discovered at step 6.
+Three consequences:
+
+- No deep import needed — v2 has a proper `exports` map for both ESM and CJS.
+- **No `@types/pdf-parse`** — v2 ships its own types, so that is one dependency we do
+  not have to add.
+- v2 wraps `pdfjs-dist`, which is heavy and may need listing in
+  `serverExternalPackages` in `next.config.ts` so Next does not try to bundle it into
+  the server build. Handle at step 6 if it complains.
+
+The upload route still needs `export const runtime = 'nodejs'` — this will not work on
+the Edge runtime.
+
+A bonus: v2 returns per-page text, so page numbers become available as a citation
+fallback for uploaded PDFs that have no detectable headings (item **c** below).
 
 **b. The port collision.** Homebrew Postgres 14 is installed and almost certainly holds
 5432. Handled by mapping to 5433, but it means `DATABASE_URL` must say 5433 and any
